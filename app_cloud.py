@@ -38,7 +38,15 @@ def load_local_model():
         print("[local] MOCK model san sang (chi de test phan luong)", flush=True)
         return
     try:
-        sys.path.insert(0, os.path.join(SCRIPT_DIR, "src"))
+        # "engine/src" = ban dong goi (repo GitHub, launcher tu tai OpenBMB/VoxCPM ve engine/)
+        # "src"        = ban dev tai cho (thu muc nay von la git clone cua OpenBMB/VoxCPM)
+        candidates = [os.path.join(SCRIPT_DIR, "engine", "src"),
+                      os.path.join(SCRIPT_DIR, "src")]
+        engine_src = next((p for p in candidates if os.path.isdir(p)), None)
+        if not engine_src:
+            raise RuntimeError(
+                "Chua co code model VoxCPM2 (engine/src hoac src). Launcher se tu tai truoc khi vao day.")
+        sys.path.insert(0, engine_src)
         from voxcpm import VoxCPM
         print("[local] Dang nap VoxCPM2 tren may (lan dau tai model ~vai GB, xin cho)...", flush=True)
         LOCAL["model"] = VoxCPM.from_pretrained("openbmb/VoxCPM2",

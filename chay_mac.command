@@ -1,10 +1,9 @@
 #!/bin/bash
 # Double-click de chay tren Mac (cloud mode - nhe, khong can RAM manh)
 cd "$(dirname "$0")"
-export SETUPTOOLS_SCM_PRETEND_VERSION=0.1.0
 
 echo "========================================"
-echo "  NHAN BAN GIONG NOI - VoxCPM2 (Cloud)"
+echo "  TRUNG_CLONE_VOICE_YOUTUBE_8686 (Cloud)"
 echo "========================================"
 echo ""
 
@@ -14,8 +13,8 @@ if ! command -v uv >/dev/null 2>&1; then
   export PATH="$HOME/.local/bin:$PATH"
 fi
 
-echo "Đang chuẩn bị (lần đầu hơi lâu)..."
-uv sync --no-editable --python 3.11
+echo "Đang chuẩn bị (lần đầu hơi lâu, các lần sau nhanh)..."
+uv sync --python 3.11
 
 echo ""
 echo "Đang khởi động (cloud mode - nhẹ, không tốn RAM)..."

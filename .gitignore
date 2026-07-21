@@ -2,6 +2,7 @@ voices/
 history/
 dictionary.json
 output_6lang/
+engine/
 .venv/
 __pycache__/
 *.pyc
