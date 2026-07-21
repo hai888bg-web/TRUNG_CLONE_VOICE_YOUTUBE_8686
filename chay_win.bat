@@ -20,9 +20,21 @@ uv sync --python 3.11
 if not exist "engine\src\voxcpm" (
   where git >nul 2>nul
   if errorlevel 1 (
+    where winget >nul 2>nul
+    if not errorlevel 1 (
+      echo.
+      echo Chua co Git - dang tu cai bang winget ^(khong can bam gi, cho chut^)...
+      winget install --id Git.Git -e --source winget --silent --accept-package-agreements --accept-source-agreements
+      set "PATH=%PATH%;C:\Program Files\Git\cmd;C:\Program Files\Git\bin"
+    )
+  )
+
+  where git >nul 2>nul
+  if errorlevel 1 (
     echo.
-    echo [CANH BAO] Chua cai Git - can Git de tai model chay local cho nhanh.
-    echo Tai Git tai: https://git-scm.com/download/win  ^(cai xong chay lai file nay^)
+    echo [CANH BAO] Chua cai duoc Git tu dong.
+    echo Tai thu cong tai: https://git-scm.com/download/win
+    echo Cai xong, KHOI DONG LAI MAY, roi chay lai file nay.
     echo Bo qua, se chay o che do cloud binh thuong.
     echo.
     goto :run
