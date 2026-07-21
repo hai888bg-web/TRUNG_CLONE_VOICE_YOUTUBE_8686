@@ -27,15 +27,41 @@ if not exist "engine\src\voxcpm" (
     echo.
     goto :run
   )
+
+  if exist "engine" (
+    echo Don dep ban tai do dang truoc do...
+    rmdir /s /q engine
+  )
+
   echo.
   echo Dang tai model VoxCPM2 ve may ^(engine\ - chi 1 lan duy nhat, ~vai phut^)...
   git clone --depth 1 https://github.com/OpenBMB/VoxCPM.git engine
+  if errorlevel 1 (
+    echo.
+    echo [LOI] Tai model that bai! Nguyen nhan thuong gap:
+    echo   - Mang cong ty / VPN chan Github
+    echo   - Chua cai xong Git, can khoi dong lai May Tinh sau khi cai
+    echo   - Het dung luong o dia ^(can it nhat 2GB trong^)
+    echo Chay lai file nay de thu lai. Tam thoi chay che do cloud ^(van dung duoc, chi cham hon^).
+    echo.
+    goto :run
+  )
+  echo Tai model xong!
 )
 
 if exist "engine\src\voxcpm" (
-  echo Dang cai them thu vien chay local ^(torch... - lan dau hoi lau^)...
+  echo.
+  echo Dang cai them thu vien chay local ^(torch... - lan dau co the toi 10-15 phut^)...
   set SETUPTOOLS_SCM_PRETEND_VERSION=0.1.0
   uv pip install -e engine
+  if errorlevel 1 (
+    echo.
+    echo [CANH BAO] Cai thu vien local that bai - se chay o che do cloud tam thoi.
+    echo Chay lai file nay de thu lai buoc nay.
+    echo.
+  ) else (
+    echo Cai xong!
+  )
 )
 
 :run
